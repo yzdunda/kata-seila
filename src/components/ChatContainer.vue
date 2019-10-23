@@ -1,34 +1,49 @@
 <template>
 	<div class="chat-container columns is-centered">
-		<div class="column is-mopbile is-half has-text-centered">
+		<div class="column is-mobile is-half has-text-centered">
+			<p>text: {{ text }}</p>
+			<p>sentences: {{ sentences }}</p>
+			<p>sentences length: {{ sentencesLength }}</p>
 			<chat-header></chat-header>
-			<chat-content :supportedBrowser="supportedBrowser"></chat-content>
-			<chat-reply
+			<chat-content
+				:supportedBrowser="supportedBrowser"
+				:text="text"
+				:loadingResponse="loadingResponse"
+				:apiResponse="apiResponse"
+			></chat-content>
+			<chat-speech
 				:supportedBrowser="supportedBrowser"
 				:text.sync="text"
 				@speechEnd="speechEnd"
-			></chat-reply>
+				:apiResponse="apiResponse"
+			></chat-speech>
 		</div>
 	</div>
 </template>
 
 <script>
+import Axios from 'axios';
 import ChatHeader from './ChatHeader';
 import ChatContent from './ChatContent';
-import ChatReply from './ChatReply';
+import ChatSpeech from './ChatSpeech';
 
 export default {
 	name: 'ChatContainer',
 	components: {
 		ChatHeader,
 		ChatContent,
-		ChatReply
+		ChatSpeech
 	},
 	data() {
 		return {
 			supportedBrowser: false,
 			text: '',
-			sentences: null
+			sentences: null,
+			sentencesLength: null,
+			loadingResponse: false,
+			apiResponse: {
+				data: null
+			}
 		};
 	},
 	methods: {
@@ -38,11 +53,42 @@ export default {
 			}
 		},
 		speechEnd({ sentences, text }) {
+			this.getPrediction(text);
 			// eslint-disable-next-line no-console
-			console.log('text', text);
+			console.log('text: ', text);
 			// eslint-disable-next-line no-console
-			console.log('sentences', sentences);
+			console.log('sentences: ', sentences);
+			// eslint-disable-next-line no-console
+			console.log('sentences length: ', sentences.length);
 			this.sentences = sentences;
+			this.sentencesLength = sentences.length;
+		},
+		getPrediction(text) {
+			this.loadingResponse = true;
+
+			Axios.post(`https://djasayuapi.herokuapp.com/app?text=${text}`)
+				.then(response => {
+					// eslint-disable-next-line no-console
+					console.log('api response: ', response.data);
+					this.apiResponse.data = response.data;
+
+					this.loadingResponse = false;
+					// let a = {
+					// 	userInput: text
+					// };
+
+					// this.respon.push(a);
+					// let responLength = a.length;
+
+					// this.getDataHp(lRespon, apiResponse);
+
+					// this.respon[lRespon].hargaHp = '';
+				})
+				.catch(err => {
+					// eslint-disable-next-line no-console
+					console.log('error: ', err);
+					this.apiResponse.data = null;
+				});
 		}
 	},
 	created() {

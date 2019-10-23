@@ -1,12 +1,13 @@
 <template>
-	<div class="chat-reply has-background-white">
+	<div class="chat-reply has-background-white ">
 		<button
 			class="button is-primary"
-			:class="{ 'is-info animated infinite pulse': this.isLoading }"
+			:class="{ 'animated infinite pulse': this.isLoading }"
 			:disabled="!supportedBrowser"
 			@click.stop="
 				isLoading ? endSpeechRocognition() : startSpeechRecognition()
 			"
+			v-if="apiResponse.data == null"
 		>
 			<img
 				class="is-rounded"
@@ -14,6 +15,13 @@
 				v-if="!isLoading"
 			/>
 			<scale-loader :loading="isLoading" :color="spinnerColor"></scale-loader>
+		</button>
+		<button
+			class="button is-primary"
+			@click="refreshClicked"
+			v-if="apiResponse.data !== null"
+		>
+			<p>Lakukan permintaan ulang</p>
 		</button>
 	</div>
 </template>
@@ -45,12 +53,19 @@ export default {
 		text: {
 			type: [String, null],
 			required: true
+		},
+		apiResponse: {
+			type: [Object, null],
+			required: true
 		}
 	},
 	components: {
 		ScaleLoader
 	},
 	methods: {
+		refreshClicked() {
+			location.reload();
+		},
 		capitalizeFirstLetter(string) {
 			return string.charAt(0).toUpperCase() + string.slice(1);
 		},
@@ -89,7 +104,7 @@ export default {
 					);
 					this.$emit(
 						'update:text',
-						`${this.text}${this.sentences.slice(-1)[0]}.`
+						`${this.text}${this.sentences.slice(-1)[0]}.. `
 					);
 				}
 				this.runtimeTranscript = '';

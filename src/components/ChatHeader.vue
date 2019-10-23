@@ -12,7 +12,7 @@ export default {};
 
 <style scoped>
 .chat-header {
-	border-top-right-radius: 15px;
-	border-top-left-radius: 15px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 }
 </style>
