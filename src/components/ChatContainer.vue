@@ -1,22 +1,25 @@
 <template>
-	<div class="chat-container columns is-centered">
-		<div class="column is-mobile is-half has-text-centered">
-			<!-- <p>text: {{ text }}</p>
+	<div>
+		<modal></modal>
+		<div class="chat-container columns is-centered">
+			<div class="column is-mobile is-half has-text-centered">
+				<!-- <p>text: {{ text }}</p>
 			<p>sentences: {{ sentences }}</p>
 			<p>sentences length: {{ sentencesLength }}</p> -->
-			<chat-header></chat-header>
-			<chat-content
-				:supportedBrowser="supportedBrowser"
-				:text="text"
-				:loadingResponse="loadingResponse"
-				:apiResponse="apiResponse"
-			></chat-content>
-			<chat-speech
-				:supportedBrowser="supportedBrowser"
-				:text.sync="text"
-				@speechEnd="speechEnd"
-				:apiResponse="apiResponse"
-			></chat-speech>
+				<chat-header></chat-header>
+				<chat-content
+					:supportedBrowser="supportedBrowser"
+					:text="text"
+					:loadingResponse="loadingResponse"
+					:apiResponse="apiResponse"
+				></chat-content>
+				<chat-speech
+					:supportedBrowser="supportedBrowser"
+					:text.sync="text"
+					@speechEnd="speechEnd"
+					:apiResponse="apiResponse"
+				></chat-speech>
+			</div>
 		</div>
 	</div>
 </template>
@@ -26,13 +29,15 @@ import Axios from 'axios';
 import ChatHeader from './ChatHeader';
 import ChatContent from './ChatContent';
 import ChatSpeech from './ChatSpeech';
+import Modal from './ModalHowTo';
 
 export default {
 	name: 'ChatContainer',
 	components: {
 		ChatHeader,
 		ChatContent,
-		ChatSpeech
+		ChatSpeech,
+		Modal
 	},
 	data() {
 		return {
