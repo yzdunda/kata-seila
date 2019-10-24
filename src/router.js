@@ -14,13 +14,9 @@ export default new Router({
 			component: Login
 		},
 		{
-			path: '/chat',
+			path: '/',
 			name: 'chat',
 			component: Chat
-		},
-		{
-			path: '/',
-			redirect: '/chat'
 		}
 	]
 });
