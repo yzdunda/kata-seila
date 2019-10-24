@@ -8,10 +8,10 @@
 						<div class="content">
 							Cara Penggunaan Seila
 							<ol>
-								<li>Klik</li>
-								<li>tunggu text</li>
-								<li>Klik kembali</li>
-								<li>Ulangi jika ingin mengulang</li>
+								<li>Klik tombol microphone</li>
+								<li>Setelah selesai bicara tunggu text muncul</li>
+								<li>Klik kembali tombol microphone</li>
+								<li>Tekan lakukan permintaan ulang jika ingin mengulangi</li>
 							</ol>
 						</div>
 					</div>
