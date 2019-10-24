@@ -1,9 +1,9 @@
 <template>
 	<div class="chat-container columns is-centered">
 		<div class="column is-mobile is-half has-text-centered">
-			<p>text: {{ text }}</p>
+			<!-- <p>text: {{ text }}</p>
 			<p>sentences: {{ sentences }}</p>
-			<p>sentences length: {{ sentencesLength }}</p>
+			<p>sentences length: {{ sentencesLength }}</p> -->
 			<chat-header></chat-header>
 			<chat-content
 				:supportedBrowser="supportedBrowser"
@@ -73,16 +73,6 @@ export default {
 					this.apiResponse.data = response.data;
 
 					this.loadingResponse = false;
-					// let a = {
-					// 	userInput: text
-					// };
-
-					// this.respon.push(a);
-					// let responLength = a.length;
-
-					// this.getDataHp(lRespon, apiResponse);
-
-					// this.respon[lRespon].hargaHp = '';
 				})
 				.catch(err => {
 					// eslint-disable-next-line no-console
